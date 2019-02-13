@@ -1,9 +1,10 @@
 # -*- encoding: utf-8 -*-
 from bs4 import BeautifulSoup
-import urllib.request
 import requests
+from io import BytesIO
+from PIL import Image
 
-req = requests.get('http://www.chictopia.com/photo/show/1153101-Valentine%E2%80%99s+Day-dark-green-midi-zara-skirt-black-leather-zara-jacket')
+req = requests.get('http://www.chictopia.com/photo/show/1154261-Public+Desire+ankle+boots-black-nasty-gal-top-dark-green-public-desire-boots')
 html = req.text 
 
 soup = BeautifulSoup(html, 'lxml')
@@ -27,8 +28,17 @@ for img_url in img_urls:
     except :
         pass
 
-#tag = soup.find('div', {'class':'left clear px10'})
-#print(tag)
+print(lst_url)
+
+lst_size = []
+
+for url in lst_url:
+    image_raw = requests.get(url)
+    image = Image.open(BytesIO(image_raw.content))
+    #width, height = image.size
+    lst_size.append(image.size)
+
+print(lst_size)
 
 tags = soup.find('div', {'class':'left clear px10'}).find_all('a')
 
@@ -38,12 +48,8 @@ for tag in tags:
     lst_tag.append(tag.string)
 print(lst_tag)
 
-print(lst_url)
-
-items = soup.find_all('div', {'class':'garmentLinks left'})
-#print(items)
-#items.find_all('a')
 lst_item = []
+items = soup.find_all('div', {'class':'garmentLinks left'})
 
 for item in items:
     str_item = ''
@@ -56,3 +62,4 @@ for item in items:
     lst_item.append(str_item)
 
 print(lst_item)
+
