@@ -3,6 +3,42 @@ import requests
 from io import BytesIO
 from PIL import Image
 
+def get_next_page(page_num):
+    
+    base_page_url = 'http://www.chictopia.com/browse/people/'
+    next_page_url = base_page_url +str(page_num)+'?g=1'
+
+    return next_page_url
+
+def get_page(page_url):
+    
+    req = requests.get(page_url)
+    html = req.text
+    soup = BeautifulSoup(html,'lxml')
+
+    post_urls = soup.find_all('div', {'itemtype':"http://schema.org/Photograph"})
+    lst_post_url = []
+
+    for post_url in post_urls:
+        lst_post_url.append('http://www.chictopia.com'+post_url.find('a').get('href'))
+
+    lst_post = []
+    for post_url in lst_post_url:    
+        #post_id, title, photographer, lst_url, lst_size, lst_tag, lst_item = crawler(post_url)
+        post_content = crawler(post_url)
+        if post_content is None:
+            continue
+        lst_post.append(post_content)
+        #lst_post.append('\n'.join(map(str, lst_post)))
+    #print(lst_post)
+    #print(type(lst_post))
+    #lst_post = str(lst_post)
+    
+    #print(lst_post)
+    with open("result.txt", "w") as output:
+        output.write(str(lst_post))
+
+
 def crawler(post_url):
 
     req = requests.get(post_url)
