@@ -1,4 +1,3 @@
-# -*- encoding: utf-8 -*-
 from bs4 import BeautifulSoup
 import requests
 from io import BytesIO
@@ -23,6 +22,7 @@ def crawler(post_url):
     lst_item = get_items(soup)
 
     post_id = post_url.split('/')[5]
+    post_id = post_id.split('-')[0]
 
     return post_id, title, photographer, lst_url, lst_size, lst_tag, lst_item
 
