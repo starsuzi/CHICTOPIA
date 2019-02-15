@@ -5,10 +5,12 @@ from PIL import Image
 import sys
 from multiprocessing import Pool, Manager
 
-def get_next_page(page_num):
+sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf8', buffering=1)
+
+def get_next_page_man(page_num):
     
     base_page_url = 'http://www.chictopia.com/browse/people/'
-    next_page_url = base_page_url +str(page_num)+'?g=1'
+    next_page_url = base_page_url +str(page_num)+'?g=2'
 
     return next_page_url
 
@@ -32,14 +34,14 @@ def get_page(page_url):
         if post_content is None:
             continue
         lst_post.append(post_content)
+        
+        with open("sample.txt", "ab") as output:
+            output.write(str(lst_post).encode('utf8'))
         #lst_post.append('\n'.join(map(str, lst_post)))
     #print(lst_post)
     #print(type(lst_post))
     #lst_post = str(lst_post)
     
-        with open("result.txt", "ab") as output:
-            output.write(str(lst_post).encode('utf8'))
-    #return lst_post
     #print(lst_post)
 
 
@@ -134,3 +136,23 @@ def get_items(soup):
 
     #print(lst_item)
     return lst_item
+
+lst_page_url_man = ['http://www.chictopia.com/browse/people?g=2']
+
+for i in range(2, 5):
+    lst_page_url_man.append(get_next_page_man(i))
+
+#print(lst_page_url[17712])
+#get_page('http://www.chictopia.com/browse/people/17713?g=1')
+
+
+if __name__ == '__main__':
+    try:
+        pool = Pool(processes=6)
+        pool.map(get_page, lst_page_url_man[:])
+
+    except Exception as ex:
+        print('===================================')
+        print(ex)
+        print('===================================')
+        pass
