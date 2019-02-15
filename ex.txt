@@ -1,3 +1,10 @@
+[{'post_id': '1202449', 'title': 'Septembrrr… ', 'photographer': 'itsAndrei', 'lst_url': ['http://images2.chictopia.com/photos/itsAndrei/6508128831/black-marelbo-shoes-black-zara-coat-black-h-m-pants.jpg', 'http://images2.chictopia.com/photos/itsAndrei/3923061243/black-marelbo-shoes-black-zara-coat-black-h-m-pants.jpg', 'http://images2.chictopia.com/photos/itsAndrei/7978848327/black-marelbo-shoes-black-zara-coat-black-h-m-pants.jpg'], 'lst_size': [(300, 450), (300, 450), (300, 450)], 'lst_tag': ['Chic', 'Everyday', 'Summer'], 'lst_item': ['black Marelbo shoes', 'black Zara coat', 'black H&M pants', 'ruby red emporio armani belt']}, {'post_id': '1183801', 'title': 'LAUNDROMAT', 'photographer': 'reyalfashion', 'lst_url': ['http://images0.chictopia.com/photos/reyalfashion/8149191449/navy-eight-field-of-freedom-jeans-maroon-forever21-jacket.jpg', 'http://images0.chictopia.com/photos/reyalfashion/11022673745/navy-eight-field-of-freedom-jeans-maroon-forever21-jacket.jpg', 'http://images0.chictopia.com/photos/reyalfashion/6429833661/navy-eight-field-of-freedom-jeans-maroon-forever21-jacket.jpg', 'http://images0.chictopia.com/photos/reyalfashion/10830071793/navy-eight-field-of-freedom-jeans-maroon-forever21-jacket.jpg'], 'lst_size': [(300, 450), (300, 450), (300, 450), (300, 450)], 'lst_tag': ['Menswear', 'School', 'winter', '3'], 'lst_item': ['navy Eight Field of Freedom jeans', 'maroon Forever21 jacket', 'light blue H&M shirt', 'white Happy Socks socks', 'white Lacoste sneakers', 'dark brown vintage glasses']}, {'post_id': '1190922', 'title': 'DESERT X + MARNA RO', 'photographer': 'mybelonging', 'lst_url': ['http://images0.chictopia.com/photos/mybelonging/11231142695/blue-floral-print-marna-ro-jacket.jpg', 'http://images2.chictopia.com/photos/mybelonging/5057740433/blue-floral-print-marna-ro-jacket.jpg', 'http://images2.chictopia.com/photos/mybelonging/3058802971/blue-floral-print-marna-ro-jacket.jpg'], 'lst_size': [(300, 450), (300, 450), (300, 450)], 'lst_tag': ['Androgynous', 'Photo Shoot', 'spring'], 'lst_item': ['blue floral print Marna Ro jacket']}][{'post_id': '1128087', 'title': 'Cobalt Blue', 'photographer': 'poshclassymom', 'lst_url': ['http://images2.chictopia.com/photos/poshclassymom/8877372440/h-m-top-leith-skirt-christian-louboutin-heels-cartier-bracelet.jpg', 'http://images2.chictopia.com/photos/poshclassymom/7145340019/h-m-top-leith-skirt-christian-louboutin-heels-cartier-bracelet.jpg', 'http://images2.chictopia.com/photos/poshclassymom/3632514331/h-m-top-leith-skirt-christian-louboutin-heels-cartier-bracelet.jpg', 'http://images2.chictopia.com/photos/poshclassymom/3338662079/h-m-top-leith-skirt-christian-louboutin-heels-cartier-bracelet.jpg'], 'lst_size': [(300, 450), (300, 450), (300, 450), (300, 450)], 'lst_tag': ['Chic', 'Everyday', 'spring'], 'lst_item': ['H&M top', 'Leith skirt', 'Christian Louboutin heels', 'Cartier bracelet']}, {'post_id': '1128036', 'title': 'Blue + White', 'photographer': 'thekentuckygent', 'lst_url': ['http://images2.chictopia.com/photos/thekentuckygent/7062946634/jcpenney-shorts-jcpenney-t-shirt.jpg', 'http://images2.chictopia.com/photos/thekentuckygent/2518040674/jcpenney-shorts-jcpenney-t-shirt.jpg', 'http://images2.chictopia.com/photos/thekentuckygent/6550321492/jcpenney-shorts-jcpenney-t-shirt.jpg', 'http://images2.chictopia.com/photos/thekentuckygent/9421541099/jcpenney-shorts-jcpenney-t-shirt.jpg'], 'lst_size': [(300, 450), (300, 450), (300, 450), (300, 450)], 'lst_tag': ['Basic', 'Boys Night Out', 'Summer'], 'lst_item': ['JCPenney shorts', 'JCPenney t-shirt']}][{'post_id': '1051755', 'title': 'SUNSHINE BLUES', 'photographer': 'reyalfashion', 'lst_url': ['http://images2.chictopia.com/photos/reyalfashion/4281914836/navy-hot-topic-jeans-navy-levis-sweater-orange-nike-sneakers.jpg', 'http://images2.chictopia.com/photos/reyalfashion/2861005438/navy-hot-topic-jeans-navy-levis-sweater-orange-nike-sneakers.jpg', 'http://images2.chictopia.com/photos/reyalfashion/6301436518/navy-hot-topic-jeans-navy-levis-sweater-orange-nike-sneakers.jpg'], 'lst_size': [(300, 450), (300, 450), (300, 450)], 'lst_tag': ['Menswear', 'Everyday', 'summer'], 'lst_item': ['navy Hot Topic jeans', "navy Levi's sweater", 'orange nike sneakers', 'black nike watch', 'black Tom Ford glasses']}][{'post_id': '1080754', 'title': 'RE-INTERPRETED + $750 GIFTCARD GIVEAWAY', 'photographer': 'mybelonging', 'lst_url': ['http://images2.chictopia.com/photos/mybelonging/6763355571/black-sneakers-tods-shoes-white-neoprene-inter-pretus-sweater.jpg', 'http://images2.chictopia.com/photos/mybelonging/2949783965/black-sneakers-tods-shoes-white-neoprene-inter-pretus-sweater.jpg', 'http://images2.chictopia.com/photos/mybelonging/8076250287/black-sneakers-tods-shoes-white-neoprene-inter-pretus-sweater.jpg'], 'lst_size': [(300, 450), (300, 450), (300, 450)], 'lst_tag': ['Androgynous', 'Everyday', 'fall'], 'lst_item': ['black sneakers Tods shoes', 'white neoprene INTER-PRET.US sweater', 'black cut out INTER-PRET.US blazer', 'black skinny INTER-PRET.US pants', 'gold gold LZZR Jewelry necklace']}]
+
+
+
+
+
+
 [Running] python -u "c:\Users\goodman\Desktop\CHICTOPIA\man.py"
 http://www.chictopia.com/browse/people?g=2
 http://www.chictopia.com/browse/people/58?g=2
@@ -1900,3 +1907,27 @@ http://www.chictopia.com/browse/people/913?g=2
 http://www.chictopia.com/browse/people/908?g=2
 http://www.chictopia.com/browse/people/911?g=2
 http://www.chictopia.com/browse/people/916?g=2
+http://www.chictopia.com/browse/people/919?g=2
+http://www.chictopia.com/browse/people/909?g=2
+http://www.chictopia.com/browse/people/914?g=2
+http://www.chictopia.com/browse/people/906?g=2
+painting day
+http://www.chictopia.com/browse/people/922?g=2
+http://www.chictopia.com/browse/people/925?g=2
+That tiny bit of sunlight
+There is no summer days left
+http://www.chictopia.com/browse/people/920?g=2
+http://www.chictopia.com/browse/people/923?g=2
+http://www.chictopia.com/browse/people/928?g=2
+http://www.chictopia.com/browse/people/931?g=2
+http://www.chictopia.com/browse/people/926?g=2
+http://www.chictopia.com/browse/people/934?g=2
+Berkeley
+http://www.chictopia.com/browse/people/921?g=2
+http://www.chictopia.com/browse/people/935?g=2
+===================================
+list index out of range
+===================================
+
+[Done] exited with code=0 in 96.473 seconds
+
