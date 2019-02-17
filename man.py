@@ -31,19 +31,23 @@ def get_page(page_url):
     #print('asdf')
     #print(lst_post_url)
 
-    cnt = 0
     lst_post = []
     for post_url in lst_post_url:
 
             
         #post_id, title, photographer, lst_url, lst_size, lst_tag, lst_item = crawler(post_url)
-        post_content = crawler(post_url)
+        try:
+            post_content = crawler(post_url)
+
+        except Exception as ex:
+            print(ex)
+            continue
 
         if post_content is None:
             continue
 
         lst_post.append(post_content)
-        cnt += 1
+
         #print('lst_post')
         #print(lst_post)
         #print('lst_post'+lst_post)
@@ -164,26 +168,27 @@ def get_items(soup):
 #get_page('http://www.chictopia.com/browse/people/17713?g=1')
 
 if __name__ == '__main__':
-    lst_page_url_man = []
+    lst_page_url_man = ['http://www.chictopia.com/browse/people?g=2']
     result = []
 
-    for i in range(2, 936):
+    for i in range(2, 100 ):
         lst_page_url_man.append(get_next_page_man(i))
 
-    try:
-        p = Pool(6)
-        result.append(p.map(get_page, lst_page_url_man[:]))
 
-        #print(lst_page_url_man)
-        #print(result)
-        with open("result_man.txt", "wb") as output:
-            output.write(str(result).encode('utf8'))
+    p = Pool(10)
+    result.append(p.map(get_page, lst_page_url_man))
 
+    #print(lst_page_url_man)
+    #print(result)
+    with open("result_man.txt", "wb") as output:
+        output.write(str(result).encode('utf8'))
+'''
     except Exception as ex:
         print('===================================')
         print(ex)
         print('===================================')
         pass
+        '''
 '''
     result = []
     lst_page_url_man = []
