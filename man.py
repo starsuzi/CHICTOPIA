@@ -170,13 +170,20 @@ if __name__ == '__main__':
     for i in range(2, 936):
         lst_page_url_man.append(get_next_page_man(i))
 
-    p = Pool(6)
-    result.append(p.map(get_page, lst_page_url_man[:]))
+    try:
+        p = Pool(6)
+        result.append(p.map(get_page, lst_page_url_man[:]))
 
-    #print(lst_page_url_man)
-    #print(result)
-    with open("result_man.txt", "ab") as output:
-        output.write(str(result).encode('utf8'))
+        #print(lst_page_url_man)
+        #print(result)
+        with open("result_man.txt", "wb") as output:
+            output.write(str(result).encode('utf8'))
+
+    except Exception as ex:
+        print('===================================')
+        print(ex)
+        print('===================================')
+        pass
 '''
     result = []
     lst_page_url_man = []
