@@ -3,3 +3,7 @@
 img/
 Annotation/
 __pycache__/
+
+result_woman.txt
+result_man_changed.txt
+.ipynb_checkpoints
