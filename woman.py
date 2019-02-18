@@ -7,10 +7,10 @@ from multiprocessing import Pool, Manager
 
 sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf8', buffering=1)
 
-def get_next_page_man(page_num):
+def get_next_page_woman(page_num):
     
     base_page_url = 'http://www.chictopia.com/browse/people/'
-    next_page_url = base_page_url +str(page_num)+'?g=2'
+    next_page_url = base_page_url +str(page_num)+'?g=1'
 
     return next_page_url
 
@@ -152,62 +152,33 @@ def get_items(soup):
     #print(lst_item)
     return lst_item
 
-#lst_page_url_man = ['http://www.chictopia.com/browse/people?g=2']
-
-
-#for i in range(2, 936):
-#for i in range(2, 100):
-#for i in range(100, 300):
-#for i in range(300, 500):
-#for i in range(2, 500):
-#for i in range(664, 900):
-#for i in range(839, 900):
-#for i in range(889, 936):
-
-#print(lst_page_url[17712])
-#get_page('http://www.chictopia.com/browse/people/17713?g=1')
-
 if __name__ == '__main__':
-    lst_page_url_man = ['http://www.chictopia.com/browse/people?g=2']
+    #lst_page_url_woman = ['http://www.chictopia.com/browse/people?g=1']
+    lst_page_url_woman = []
     result = []
 
-    for i in range(2, 936):
-        lst_page_url_man.append(get_next_page_man(i))
+    #for i in range(2, 17714):
+    #for i in range(2, 1000):
+    #for i in range(1000, 2000): 
+    #for i in range(2000, 3000): 
+    #for i in range(3000, 4000):
+    #for i in range(4000, 5000):
+    #for i in range(5000, 6000):
+    #for i in range(6000, 7000):
+    #for i in range(7000, 8000):
+    #for i in range(8000, 9000):
+    #for i in range(9000, 10000):
+    #for i in range(10000, 11000):
+    #for i in range(11000, 12000):
+    #for i in range(12000, 13000):
+    for i in range(13000, 14000):
+        lst_page_url_woman.append(get_next_page_woman(i))
 
 
     p = Pool(16)
-    res = p.map(get_page, lst_page_url_man)
+    res = p.map(get_page, lst_page_url_woman)
     if res is not None:
         result.append(res)
 
-    #print(lst_page_url_man)
-    #print(result)
-    with open("result_man.txt", "wb") as output:
+    with open("result_woman.txt", "ab") as output:
         output.write(str(result).encode('utf8'))
-'''
-    except Exception as ex:
-        print('===================================')
-        print(ex)
-        print('===================================')
-        pass
-        '''
-'''
-    result = []
-    lst_page_url_man = []
-
-    for i in range(2, 3):
-        lst_page_url_man.append(get_next_page_man(i))
-
-    try:
-        pool = Pool(processes=4)
-        result.append(pool.map(get_page, lst_page_url_man[:]))
-
-    except Exception as ex:
-        print('===================================')
-        print(ex)
-        print('===================================')
-        pass
-
-    print(result)
-
-'''
