@@ -7,6 +7,13 @@ from multiprocessing import Pool, Manager
 
 sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf8', buffering=1)
 
+def get_next_page_man(page_num):
+    
+    base_page_url = 'http://www.chictopia.com/browse/people/'
+    next_page_url = base_page_url +str(page_num)+'?g=2'
+
+    return next_page_url
+
 def get_next_page_woman(page_num):
     
     base_page_url = 'http://www.chictopia.com/browse/people/'
@@ -14,7 +21,7 @@ def get_next_page_woman(page_num):
 
     return next_page_url
 
-def get_page(page_url):
+def get_post(page_url):
     
     print(page_url)
 
@@ -28,13 +35,8 @@ def get_page(page_url):
     for post_url in post_urls:
         lst_post_url.append('http://www.chictopia.com'+post_url.find('a').get('href'))
 
-    #print('asdf')
-    #print(lst_post_url)
-
     lst_post = []
     for post_url in lst_post_url:
-
-            
         #post_id, title, photographer, lst_url, lst_size, lst_tag, lst_item = crawler(post_url)
         try:
             post_content = crawler(post_url)
@@ -48,18 +50,7 @@ def get_page(page_url):
 
         lst_post.append(post_content)
 
-        #print('lst_post')
-        #print(lst_post)
-        #print('lst_post'+lst_post)
-        
     return str(lst_post).encode('utf8')
-
-        #lst_post.append('\n'.join(map(str, lst_post)))
-    #print(lst_post)
-    #print(type(lst_post))
-    #lst_post = str(lst_post)
-    
-    #print(lst_post)
 
 def crawler(post_url):
 
@@ -149,8 +140,8 @@ def get_items(soup):
         str_item = str_item[1:]
         lst_item.append(str_item)
 
-    #print(lst_item)
     return lst_item
+
 
 if __name__ == '__main__':
     #lst_page_url_woman = ['http://www.chictopia.com/browse/people?g=1']
@@ -165,18 +156,23 @@ if __name__ == '__main__':
     #for i in range(4000, 5000):
     #for i in range(5000, 6000):
     #for i in range(6000, 7000):
-    #for i in range(7000, 8000):
+    #for i in range(7000, 8000): 
     #for i in range(8000, 9000):
     #for i in range(9000, 10000):
     #for i in range(10000, 11000):
     #for i in range(11000, 12000):
     #for i in range(12000, 13000):
-    for i in range(13000, 14000):
+    #for i in range(13000, 14000):
+    #for i in range(14000, 15000):
+    #for i in range(15000, 16000): 
+    #for i in range(16000, 17000):
+    #for i in range(17000, 17714): 
+    for i in range(17000, 17714): 
         lst_page_url_woman.append(get_next_page_woman(i))
 
 
     p = Pool(16)
-    res = p.map(get_page, lst_page_url_woman)
+    res = p.map(get_post, lst_page_url_woman)
     if res is not None:
         result.append(res)
 

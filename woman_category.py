@@ -4,6 +4,7 @@ from io import BytesIO
 from PIL import Image
 import sys
 from multiprocessing import Pool, Manager
+import random
 
 sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf8', buffering=1)
 
@@ -21,16 +22,30 @@ def get_next_page_woman(page_num):
 
     return next_page_url
 
-def get_post(page_url):
+def get_post_url(page_url):
     
-    print(page_url)
+    req = requests.get(page_url)
+    html = req.text
+    soup = BeautifulSoup(html,'lxml')
+
+    post_urls = soup.find_all('div', {'itemtype':"http://schema.org/Photograph"})
+    #print(post_urls)
+    lst_post_url = []
+    for post_url in post_urls:
+        lst_post_url.append('http://www.chictopia.com'+post_url.find('a').get('href'))
+
+    return lst_post_url
+
+def get_post(page_url):
+        
+    #print(page_url)
 
     req = requests.get(page_url)
     html = req.text
     soup = BeautifulSoup(html,'lxml')
 
     post_urls = soup.find_all('div', {'itemtype':"http://schema.org/Photograph"})
-
+    #print(post_urls)
     lst_post_url = []
     for post_url in post_urls:
         lst_post_url.append('http://www.chictopia.com'+post_url.find('a').get('href'))
@@ -38,14 +53,16 @@ def get_post(page_url):
     lst_post = []
     for post_url in lst_post_url:
         #post_id, title, photographer, lst_url, lst_size, lst_tag, lst_item = crawler(post_url)
+        #print(post_url)
         try:
+            ##############
             post_content = crawler(post_url)
 
         except Exception as ex:
             print(ex)
             continue
 
-        if post_content is None:
+        if post_content is None:  
             continue
 
         lst_post.append(post_content)
@@ -74,6 +91,26 @@ def crawler(post_url):
     post_id = post_id.split('-')[0]
 
     return {'post_id':post_id, 'title':title, 'photographer':photographer, 'lst_url':lst_url, 'lst_size':lst_size, 'lst_tag':lst_tag, 'lst_item':lst_item}
+
+def get_post_id(post_url):
+
+    req = requests.get(post_url)
+    html = req.text 
+    soup = BeautifulSoup(html, 'lxml')
+
+    lst_url = get_image_url(soup)
+
+    if len(lst_url) < 3:
+        #print(str(len(lst_url))+' images')
+        #print('less than 3 images')
+        return
+    post_id = post_url.split('/')[5]
+    post_id = post_id.split('-')[0]    
+
+
+    print(post_id)
+    #print(lst_url)    
+    return post_id
 
 def get_title_photographer(soup):
 
@@ -141,3 +178,30 @@ def get_items(soup):
         lst_item.append(str_item)
 
     return lst_item
+
+
+if __name__ == '__main__':
+
+    lst_dress_url_woman = ['http://www.chictopia.com/browse/people/clothes-dress?g=1']
+    dress_result = []
+
+    #dress
+    lst_dress_page = random.sample(range(4322), 200)
+    for i in lst_dress_page:
+        lst_dress_url_woman.append(get_next_page_woman(i))
+
+    p = Pool(16)
+    dress_res = p.map(get_post_id_moreThan3, lst_dress_url_woman)
+
+    #print(res)
+    if dress_res is not None:
+        dress_result.append(dress_res)
+
+    print(dress_result)
+    #print(result)
+    #with open("list_woman_dress.txt", "wb") as output:
+    #    output.write(str(result).encode('utf8'))
+
+
+
+#http://www.chictopia.com/browse/people/clothes-dress?g=1
