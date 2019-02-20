@@ -9,3 +9,4 @@ result_man_changed.txt
 .ipynb_checkpoints
 
 *.txt
+*.json
