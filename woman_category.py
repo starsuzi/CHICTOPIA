@@ -6,6 +6,7 @@ import sys
 from multiprocessing import Pool, Manager
 import random
 import json
+import codecs
 
 sys.stdout = open(sys.stdout.fileno(), mode='w', encoding='utf8', buffering=1)
 
@@ -168,71 +169,176 @@ def get_items(soup):
 
     return lst_item
 
-if __name__ == '__main__':
-    '''
-    lst_dress_url_woman = ['http://www.chictopia.com/browse/people/clothes-dress?g=1']
+def saver(category, total_page, percentage):
+    lst_category_url_woman = ["http://www.chictopia.com/browse/people/clothes-"+category+"?g=1"]
     nested_nested_result = []
     flat_result = []
-    
-    for i in random.sample(range(4322), int(4322*0.1)):#range(2, 4322):
-        lst_dress_url_woman.append(get_next_page_woman(i, 'clothes-dress/'))
+
+    for i in random.sample(range(total_page), int(total_page*percentage)):#range(2, 4322):
+        lst_category_url_woman.append(get_next_page_woman(i, 'clothes-'+category+'/'))
 
     p = Pool(16)
-    res = p.map(get_post, lst_dress_url_woman)
+    res = p.map(get_post, lst_category_url_woman)
     if res is not None:
         nested_nested_result.append(res)
     
     for nested_sublist in nested_nested_result:
         for sublist in nested_sublist:
             for item in sublist:
+                if len(set(flat_result)) == 1000:
+                    break
                 flat_result.append(item)
-    
-    with open("result_dress.txt", "wb") as output:
-        output.write(str(set(flat_result)).encode('utf8'))#               
-    '''
-   
-    #coat
-    lst_coat_url_woman = ['http://www.chictopia.com/browse/people/clothes-coat?g=1']
-    nested_nested_result = []
-    flat_result = []
-    
-    for i in random.sample(range(1247), int(1247)):#range(2, 4322):
-        lst_coat_url_woman.append(get_next_page_woman(i, 'clothes-coat/'))
 
-    p = Pool(16)
-    res = p.map(get_post, lst_coat_url_woman)
-    if res is not None:
-        nested_nested_result.append(res)
-    
-    for nested_sublist in nested_nested_result:
-        for sublist in nested_sublist:
-            for item in sublist:
-                flat_result.append(item)
-    
-    with open("result_coat.txt", "wb") as output:
-        output.write(str(set(flat_result)).encode('utf8'))
-    
-    '''
-    
-    #vest
-    lst_vest_url_woman = ['http://www.chictopia.com/browse/people/clothes-vest?g=1']
-    nested_nested_result = []
-    flat_result = []
-    
-    for i in random.sample(range(1247), int(1247)):#range(2, 4322):
-        lst_vest_url_woman.append(get_next_page_woman(i, 'clothes-vest/'))
 
-    p = Pool(16)
-    res = p.map(get_post, lst_vest_url_woman)
-    if res is not None:
-        nested_nested_result.append(res)
-    
-    for nested_sublist in nested_nested_result:
-        for sublist in nested_sublist:
-            for item in sublist:
-                flat_result.append(item)
     print("===len===")
     print(len(flat_result))
-    with open("result_vest.txt", "wb") as output:
+    with open("result_"+category+".txt", "wb") as output:
         output.write(str(set(flat_result)).encode('utf8'))
-     '''
+
+def text_to_json(category):
+    
+    text_file = './result_'+category+'.txt'
+    #print(text_file)
+    json_file = './result_'+category+'_changed.json'
+
+    s_file = open(text_file, 'r', encoding='utf-8')
+    #print(s_file)
+    s_filedata = s_file.read() 
+
+    s_filedata = s_filedata.replace("}'", "}")
+    s_filedata = s_filedata.replace("'{", "{")
+    s_filedata = s_filedata.replace("{", '\n'+"{")
+    s_filedata = s_filedata.replace('\\"', "")
+
+    s_filedata = s_filedata.replace('"post_id"', '\n'+'"post_id"')
+    s_filedata = s_filedata.replace('"post_url"', '\n'+'"post_url"')
+    s_filedata = s_filedata.replace('"img_url"', '\n'+'"img_url"')
+    s_filedata = s_filedata.replace('"tag"', '\n'+'"tag"')
+    s_filedata = s_filedata.replace('"item"', '\n'+'"item"')
+
+    s_filedata = s_filedata.replace("\\", "")
+    s_filedata = s_filedata.replace("}, {", "}, "+"\n"+"{")
+
+    s_filedata = s_filedata.replace(".jpg", '_400.jpg')
+
+    s_filedata = s_filedata.replace('{'+'\n'+'{', '['+'\n'+'{')
+    s_filedata = s_filedata.replace('}}', '}'+'\n'+']')
+
+    f_file = codecs.open(json_file, 'w', 'utf-8')
+    f_file.write(s_filedata)
+
+if __name__ == '__main__':
+
+    #dress
+    #saver('dress',4322, 0.1) 
+    #coat
+    #saver('coat',1247, 1)     
+    #vest
+    #saver('vest',1247, 1)     
+    #jumper
+    #saver('jumper',303, 1)
+    #skirt
+    #saver('skirt',3495, 0.15)
+    
+    #shirt
+    #saver('shirt',2137, 0.25)
+    #text_to_json('shirt')
+    
+    #blouse
+    #saver('blouse',1515, 0.3)
+    #text_to_json('blouse')
+    
+    #t-shirt
+    #saver('t-shirt',1015, 0.5)
+    #text_to_json('t-shirt')
+    
+    #sweater
+    #saver('sweater',1581, 0.3)
+    #text_to_json('sweater')   
+
+    #top
+    #saver('top',2700, 0.25)
+    #text_to_json('top')  
+
+    #jacket
+    #saver('jacket',2079, 0.25)
+    #text_to_json('jacket')  
+
+    #blazer
+    #saver('blazer',1198, 0.4) 
+    #text_to_json('blazer')  
+
+    #pants
+    #saver('pants',1692, 0.3)
+    #text_to_json('pants')  
+
+    #jeans
+    #saver('jeans',1720, 0.3)
+    #text_to_json('jeans')  
+
+    #shorts
+    #saver('shorts',1675, 0.3)
+    #text_to_json('shorts')   
+
+    #panties
+    #saver('panties',26, 1)
+    #text_to_json('panties') 
+
+    #leggings
+    #saver('leggings',578, 1)
+    #text_to_json('leggings') 
+
+    #scarf
+    #saver('scarf',820, 1)
+    #text_to_json('scarf')
+
+    #bag
+    #saver('bag',3967, 0.15)
+    #text_to_json('bag') 
+    
+    #purse
+    #saver('purse',560, 1)
+    #text_to_json('purse') 
+
+    #shoes
+    #saver('shoes',3887, 0.15)
+    #text_to_json('shoes') 
+
+    #sneakers
+    #saver('sneakers',373, 1)
+    #text_to_json('sneakers') 
+
+    #boots
+    #saver('boots',2840, 0.15)
+    #text_to_json('boots') 
+
+    #flats
+    #saver('flats',387, 1)
+    #text_to_json('flats') 
+
+    #wedges
+    #saver('wedges',490, 1)
+    #text_to_json('wedges') 
+
+    #sandals
+    #saver('sandals',582, 1)
+    #text_to_json('sandals') 
+
+    #loafers
+    #saver('loafers',135, 1)
+    #text_to_json('loafers') 
+
+    #clogs
+    #saver('clogs',50, 1)
+    #text_to_json('clogs') 
+
+    #hat
+    #saver('hat',1662, 0.3)
+    #text_to_json('hat') 
+     
+    #glasses
+    saver('glasses',247, 1)
+    text_to_json('glasses') 
+
+
+    
