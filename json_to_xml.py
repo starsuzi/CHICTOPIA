@@ -53,7 +53,7 @@ with open('./sample.json', 'r') as infile:
     ds = json.load(infile)
     #print(ds)
     for post in ds:
-        #print(post)
+        print(post)
         #print(type(post))
         #print(post['post_url'])
         #print(post['img_url'])
