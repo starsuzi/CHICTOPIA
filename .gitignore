@@ -3,6 +3,8 @@
 img/
 Annotation/
 __pycache__/
+woman_xml/
+man_xml/
 
 result_woman.txt
 result_man_changed.txt

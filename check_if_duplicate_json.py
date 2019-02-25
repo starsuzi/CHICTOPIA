@@ -29,7 +29,7 @@ with open('./sample.json', 'r') as infile:
     for img_url in lst_img_url:
 
         img_id = img_url.split('/')
-        img_id = (img_id[-2]+'_'+img_id[-1])
+        img_id = (img_id[-2]+'_'+img_id[-1][:-8])
 
         with open('./img/'+img_id+'.jpg', 'ab') as f:
             f.write(requests.get(img_url).content)
