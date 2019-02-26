@@ -5,6 +5,8 @@ Annotation/
 __pycache__/
 woman_xml/
 man_xml/
+crawling_result/
+sample/
 
 result_woman.txt
 result_man_changed.txt
