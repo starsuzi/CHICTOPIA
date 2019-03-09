@@ -62,6 +62,10 @@ def get_post(page_url):
     for post_url in lst_post_url:
         try:
             post_content = dict_to_json(crawler(post_url))
+
+            if '[]' in post_content:
+                continue
+
         except Exception as ex:
             print(ex)
             continue
@@ -153,7 +157,8 @@ def get_items(soup):
 
     lst_item = []
     items = soup.find_all('div', {'class':'garmentLinks left'})
-    
+    #items = soup.find_all('div', {'class':'left garmentLinks'})
+
     for item in items:
         str_item = ''
         item_names = item.find_all('a')
@@ -166,15 +171,16 @@ def get_items(soup):
 
 #function for saving results of crawling according to category
 def saver(category, total_page, percentage):
-    lst_category_url_woman = ["http://www.chictopia.com/browse/people/clothes-"+category+"?g=1"]
+
+    lst_category_url = ["http://www.chictopia.com/browse/people/clothes-"+category+"?g=1"]
     nested_nested_result = []
     flat_result = []
 
     for i in random.sample(range(total_page), int(total_page*percentage)):
-        lst_category_url_woman.append(get_next_page_woman(i, 'clothes-'+category+'/'))
+        lst_category_url.append(get_next_page_woman(i, 'clothes-'+category+'/'))
 
     p = Pool(16)
-    res = p.map(get_post, lst_category_url_woman)
+    res = p.map(get_post, lst_category_url)
     if res is not None:
         nested_nested_result.append(res)
     

@@ -1,6 +1,6 @@
 import json
 
-def convert_to_xml(img_url, post):
+def extract_basic(img_url, post):
 
     img_id = img_url.split('/')
     img_id = (img_id[-2]+'_'+img_id[-1][:-8]+'.jpg')
@@ -180,53 +180,53 @@ def check_pattern(obj):
       else:
             return ''
 
-      
-            
 #with open('./sample/sample.json', 'r') as infile:
-with open('./result_man_final.json', 'r') as infile:
+def convert_to_xml(in_path, out_path):
 
-    ds = json.load(infile)
+      with open('./man_final.json', 'r') as infile:
 
-    lst_xml_result = []
-    lst_file_name = []
+            ds = json.load(infile)
 
-    for post in ds:
-        tag = str(post['tag'])
+            lst_xml_result = []
+            lst_file_name = []
 
-        for img_url in post['img_url']:
-            img_result = convert_to_xml(img_url, post)
-            img_id = img_url.split('/')
-            img_id = (img_id[-2]+'_'+img_id[-1][:-8])
-            lst_file_name.append(img_id)
+            for post in ds:
+                  tag = str(post['tag'])
 
-            item_result = ""
-            for obj in post['item']:
+                  for img_url in post['img_url']:
+                        img_result = extract_basic(img_url, post)
+                        img_id = img_url.split('/')
+                        img_id = (img_id[-2]+'_'+img_id[-1][:-8])
+                        lst_file_name.append(img_id)
+
+                        item_result = ""
+
+                        for obj in post['item']:
                   
-                category = check_category(''.join(obj.split(" ")[-1:]))
+                              category = check_category(''.join(obj.split(" ")[-1:]))
 
-                season = ''
-                colors = ''
-                sleeves = ''
-                pattern = ''
+                              season = ''
+                              colors = ''
+                              sleeves = ''
+                              pattern = ''
 
+                              if category == 'None':
+                                    continue
 
-                if category == 'None':
-                      continue
+                              colors = check_color(obj)
+                  
+                              if category in ['coat', 'dress','vest', 'shirt', 'jumper', 'jacket', 'pants','skirt']:
+                        
+                                    sleeves = check_sleeves(obj)             
+                                    pattern = check_pattern(obj)             
+                                    season = check_season(tag)
 
-                colors = check_color(obj)
-                
-                if category in ['coat', 'dress','vest', 'shirt', 'jumper', 'jacket', 'pants','skirt']:
-                    
-                    sleeves = check_sleeves(obj)             
-                    pattern = check_pattern(obj)             
-                    season = check_season(tag)
+                              item_result += extract_object(season, obj, category, colors, sleeves, pattern)
 
-                item_result += extract_object(season, obj, category, colors, sleeves, pattern)
+                        xml_result = img_result+item_result+'\n'+'</annotation>'
+                        lst_xml_result.append(xml_result)
 
-            xml_result = img_result+item_result+'\n'+'</annotation>'
-            lst_xml_result.append(xml_result)
-
-for i, xml_file in enumerate(lst_xml_result):
-  #with open('./woman_xml/'+lst_file_name[i]+'.xml', 'w') as outfile:
-  with open('./man_xml/'+lst_file_name[i]+'.xml', 'w') as outfile:
-    outfile.write(xml_file) 
+      for i, xml_file in enumerate(lst_xml_result):
+      #with open('./woman_xml/'+lst_file_name[i]+'.xml', 'w') as outfile:
+            with open('./man_xml/'+lst_file_name[i]+'.xml', 'w') as outfile:
+                  outfile.write(xml_file) 

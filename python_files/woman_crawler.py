@@ -25,8 +25,8 @@ if __name__ == '__main__':
     #crawling_module.text_to_json('skirt')
     
     #shirt
-    #crawling_module.saver('shirt',2137, 0.25)
-    #crawling_module.text_to_json('shirt')
+    crawling_module.saver('shirt',2137, 0.25)
+    crawling_module.text_to_json('shirt')
     
     #blouse
     #crawling_module.saver('blouse',1515, 0.3)
@@ -65,8 +65,8 @@ if __name__ == '__main__':
     #crawling_module.text_to_json('shorts')   
 
     #panties
-    crawling_module.saver('panties',26, 1)
-    crawling_module.text_to_json('panties') 
+    #crawling_module.saver('panties',26, 1)
+    #crawling_module.text_to_json('panties') 
 
     #leggings
     #crawling_module.saver('leggings',578, 1)

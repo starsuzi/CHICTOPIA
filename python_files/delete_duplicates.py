@@ -11,4 +11,5 @@ def delete_dulplicates(json_to_check, json_to_save):
         json.dump(list(new_ds), outfile, indent=2)
 
 #category_combined_woman.json is the total category combined file 
-#delete_dulplicates('./category_combined_woman.json', './result_woman_final.json')
+delete_dulplicates('./crawling_result/temp/woman_combined.json', './crawling_result/final/woman_final.json')
+delete_dulplicates('./crawling_result/json/result_man.json', './crawling_result/final/man_final.json')
