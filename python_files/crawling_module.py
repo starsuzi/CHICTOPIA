@@ -26,7 +26,7 @@ def get_next_page_woman(page_num, category):
 
     return next_page_url
 
-#function of getting the list of post urls of the page
+#function of getting the list of total post urls in the page
 def get_post_url(page_url):
     
     req = requests.get(page_url)
@@ -38,38 +38,42 @@ def get_post_url(page_url):
     lst_post_url = []
     lst_delete = []
 
+    #get all post urls and append them to lst_post_url
     for post_url in post_urls:
         lst_post_url.append('http://www.chictopia.com'+post_url.find('a').get('href'))
     
+    #get image_urls in the post
     for post_url in lst_post_url:
         lst_img_url = get_image_url(BeautifulSoup(requests.get(post_url).text, 'lxml'))
-
+        #if the post has less than 3 images, append lst_delete
         if len(lst_img_url) < 3:
             lst_delete.append(post_url)
 
+    #remove posts that have less than 3 images from lst_post_url
     lst_post_url = list(set(lst_post_url) - set(lst_delete))
 
     return lst_post_url
 
-#getting each post in lst_post_url
+#getting crawled posts in the page
 def get_post(page_url):
      
-    #get list of post urls from the page
+    #get list of post urls that comtain more than 3 images from the page
     lst_post_url = get_post_url(page_url)
     lst_post = []
 
     #crawl the contents from the post url
     for post_url in lst_post_url:
         try:
+            #post_comtent contains result of crawling in json format
             post_content = dict_to_json(crawler(post_url))
-
+            #if post_content has empty element, continue
             if '[]' in post_content:
                 continue
 
         except Exception as ex:
             print(ex)
             continue
-
+        #if post_content is empty, continue
         if post_content is None:  
             continue
 
@@ -82,24 +86,25 @@ def dict_to_json(dict_val):
     json_val = json.dumps(dict_val)
     return json_val
 
+#crawl from the gives post_url
 def crawler(post_url):
 
     req = requests.get(post_url)
     html = req.text 
     soup = BeautifulSoup(html, 'lxml')
 
-     #get image url, title, photographer, tags and item from post_url
+    #get image url, title, photographer, tags and item from post_url
     lst_url = get_image_url(soup)
     title, photographer = get_title_photographer(soup)
 
     lst_tag = get_tags(soup)
-    lst_item = get_items(soup)
+    lst_flat_item = get_items(soup)
 
     #get post_id
     post_id = post_url.split('/')[5]
     post_id = post_id.split('-')[0]
 
-    return {"post_id":post_id, "post_url":'http://www.chictopia.com/photo/show/'+post_id, "img_url":lst_url, "tag": lst_tag, "item":lst_item}
+    return {"post_id":post_id, "post_url":'http://www.chictopia.com/photo/show/'+post_id, "img_url":lst_url, "tag": lst_tag, "item":lst_flat_item}
 
 #function for getting title and photographer
 def get_title_photographer(soup):
@@ -115,7 +120,6 @@ def get_title_photographer(soup):
 def get_image_url(soup):
     
     lst_url = []
-
     img_urls = soup.find('div', {'style':'display:inline-block'})
 
     if img_urls is None:
@@ -157,7 +161,6 @@ def get_items(soup):
 
     lst_item = []
     items = soup.find_all('div', {'class':'garmentLinks left'})
-    #items = soup.find_all('div', {'class':'left garmentLinks'})
 
     for item in items:
         str_item = ''
@@ -169,34 +172,38 @@ def get_items(soup):
 
     return lst_item
 
-#function for saving results of crawling according to category
-def saver(category, total_page, percentage):
+#function for saving results of crawling according to woman's category
+#this function get total page of the category, percentage and max number of the total result posts
+def random_sampler(category, total_page, percentage, max_post_num):
 
-    lst_category_url = ["http://www.chictopia.com/browse/people/clothes-"+category+"?g=1"]
-    nested_nested_result = []
-    flat_result = []
+    lst_category_page_url = ["http://www.chictopia.com/browse/people/clothes-"+category+"?g=1"]
+    nested_nested_list = []
+    lst_item = []
 
+    #random sample of page number
+    # ex) dress category has total 4322 pages and the percentage parameter is 0.1, lst_category_page_url randomly gets (4322*0.1) page urls  
     for i in random.sample(range(total_page), int(total_page*percentage)):
-        lst_category_url.append(get_next_page_woman(i, 'clothes-'+category+'/'))
+        lst_category_page_url.append(get_next_page_woman(i, 'clothes-'+category+'/'))
 
     p = Pool(16)
-    res = p.map(get_post, lst_category_url)
+    res = p.map(get_post, lst_category_page_url)
+
     if res is not None:
-        nested_nested_result.append(res)
+        nested_nested_list.append(res)
     
-    for nested_sublist in nested_nested_result:
+    for nested_sublist in nested_nested_list:
         for sublist in nested_sublist:
             for item in sublist:
-                if len(set(flat_result)) == 1000:
+                #if exceeds max_post_num, break
+                if len(set(lst_item)) == max_post_num:
                     break
-                flat_result.append(item)
-
+                lst_item.append(item)
 
     print("===len===")
-    print(len(flat_result))
+    print(len(set(lst_item)))
 
     with open("./crawling_result/text/result_"+category+".txt", "w") as output:
-        output.write(str(set(flat_result)))
+        output.write(str(set(lst_item)))
 
 #function for changing text to json
 def text_to_json(category):
