@@ -24,7 +24,7 @@ def image_downloader(in_path, out_folder):
             with open(out_folder+img_id+'.jpg', 'ab') as outfile:
                 outfile.write(requests.get(img_url).content)
 
-#image_downloader('./crawling_result/final/man_final.json', './man/img/')
+image_downloader('./crawling_result/final/man_final.json', './man/img/')
 image_downloader('./crawling_result/final/woman_final.json', './woman/img/')
 
 

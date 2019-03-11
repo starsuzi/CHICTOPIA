@@ -1,4 +1,4 @@
-import crawling_module
+import _0_crawling_module as crawling_module
 from multiprocessing import Pool, Manager
 
 #main

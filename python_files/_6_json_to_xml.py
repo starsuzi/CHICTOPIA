@@ -228,6 +228,5 @@ def convert_to_xml(in_path, out_folder, gender):
             with open(out_path, 'w') as outfile:
                   outfile.write(xml_file) 
 
-#convert_to_xml('./sample/sample.json', './sample/img/', 'man')
 convert_to_xml('./crawling_result/final/woman_final.json', './woman/img/', 'woman')
 convert_to_xml('./crawling_result/final/man_final.json', './man/img/', 'man')
